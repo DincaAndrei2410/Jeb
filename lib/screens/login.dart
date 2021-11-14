@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
+import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/style.dart';
 
 class LoginPage extends StatelessWidget {
@@ -41,13 +42,15 @@ class LoginPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      RoundedButton("Login", GreenColor, Colors.transparent,
-                          Colors.white),
+                      RoundedButton(
+                          "Login", GreenColor, Colors.transparent, Colors.white,
+                          onPressed: () => NavigateToSignup(context)),
                       const SizedBox(height: 8),
                       const Text("or", style: SubtitleTextStyle),
                       const SizedBox(height: 8),
                       RoundedButton(
-                          "Sign up", Colors.white, GreenColor, GreenColor),
+                          "Sign up", Colors.white, GreenColor, GreenColor,
+                          onPressed: () => NavigateToSignup(context)),
                       const SizedBox(height: 24),
                       UnderlinedTextButton("Change to hindi", GreenColor)
                     ],
@@ -59,5 +62,10 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  void NavigateToSignup(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EnterDetailsPage()));
   }
 }
