@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
+import 'package:jaib/components/number_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
-import 'package:jaib/screens/signup/card_number.dart';
+import 'package:jaib/screens/signup/cvv_number.dart';
 import 'package:jaib/style.dart';
 
-import 'cvv_number.dart';
-
-class EnterDetailsPage extends StatelessWidget {
-  const EnterDetailsPage({Key? key}) : super(key: key);
+class EnterCardNumberPage extends StatelessWidget {
+  const EnterCardNumberPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +18,29 @@ class EnterDetailsPage extends StatelessWidget {
                 child: Padding(
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child: Column(children: [
+            const Text("Enter card number", style: HeadlineTextStyle),
+            const SizedBox(height: 30),
             Image.asset(
-              "assets/images/enter_details_image.png",
+              "assets/images/front_card.png",
               fit: BoxFit.fitHeight,
-              width: 150,
+              width: 300,
             ),
             const SizedBox(height: 30),
-            const Text("Enter your details", style: HeadlineTextStyle),
-            const SizedBox(height: 30),
-            RoundedInputField("Enter your name"),
-            const SizedBox(height: 16),
-            CountriesDropDownInpuField("Choose your country"),
-            const SizedBox(height: 24),
+            NumberInputField(16, 10),
+            const SizedBox(height: 32),
             RoundedButton(
               "Next",
               GreenColor,
               Colors.transparent,
               Colors.white,
-              onPressed: () => NavigateToCardNumber(context),
+              onPressed: () => NavigateToCVVNumber(context),
             ),
           ]),
         ))));
   }
 
-  void NavigateToCardNumber(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => EnterCardNumberPage()));
+  void NavigateToCVVNumber(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EnterCVVNumberPage()));
   }
 }
