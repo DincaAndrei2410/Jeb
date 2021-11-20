@@ -3,6 +3,7 @@ import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
+import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/style.dart';
 
 class LoginPage extends StatelessWidget {
@@ -66,6 +67,6 @@ class LoginPage extends StatelessWidget {
 
   void NavigateToSignup(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EnterDetailsPage()));
+        context, MaterialPageRoute(builder: (context) => OnboardingPage()));
   }
 }

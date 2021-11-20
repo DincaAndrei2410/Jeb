@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/number_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
-import 'package:jaib/components/rounded_input_field.dart';
+import 'package:jaib/screens/signup/password.dart';
 import 'package:jaib/style.dart';
 
 class EnterCVVNumberPage extends StatelessWidget {
@@ -29,14 +28,14 @@ class EnterCVVNumberPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 80, right: 80),
                 child: NumberInputField(3, 36)),
             const SizedBox(height: 32),
-            RoundedButton(
-              "Next",
-              GreenColor,
-              Colors.transparent,
-              Colors.white,
-              onPressed: () => {},
-            ),
+            RoundedButton("Next", GreenColor, Colors.transparent, Colors.white,
+                onPressed: () => NavigateToPassword(context))
           ]),
         ))));
+  }
+
+  void NavigateToPassword(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PasswordPage()));
   }
 }

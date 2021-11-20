@@ -26,7 +26,7 @@ class EnterCardNumberPage extends StatelessWidget {
               width: 300,
             ),
             const SizedBox(height: 30),
-            NumberInputField(16, 10),
+            NumberInputField(16, 17),
             const SizedBox(height: 32),
             RoundedButton(
               "Next",
