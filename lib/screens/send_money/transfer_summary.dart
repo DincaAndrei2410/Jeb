@@ -8,6 +8,7 @@ import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
 
 import 'bank_details.dart';
+import 'congratulations.dart';
 
 class TransferSummaryPage extends StatelessWidget {
   const TransferSummaryPage({Key? key}) : super(key: key);
@@ -31,14 +32,16 @@ class TransferSummaryPage extends StatelessWidget {
               GreenColor,
               Colors.transparent,
               Colors.white,
-              onPressed: () => NavigateToBankDetailsNumber(context),
+              onPressed: () => NavigateToCongratulations(context),
             ),
           ]),
         ))));
   }
 
-  void NavigateToBankDetailsNumber(BuildContext context) {
+  void NavigateToCongratulations(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BankDetailsPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => SendMoneyCongratulationsPage()));
   }
 }
