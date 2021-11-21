@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
+import 'package:jaib/screens/dashboard.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/style.dart';
@@ -45,7 +46,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       RoundedButton(
                           "Login", GreenColor, Colors.transparent, Colors.white,
-                          onPressed: () => NavigateToSignup(context)),
+                          onPressed: () => NavigateToDashboard(context)),
                       const SizedBox(height: 8),
                       const Text("or", style: SubtitleTextStyle),
                       const SizedBox(height: 8),
@@ -67,6 +68,11 @@ class LoginPage extends StatelessWidget {
 
   void NavigateToSignup(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => OnboardingPage()));
+        context, MaterialPageRoute(builder: (context) => EnterDetailsPage()));
+  }
+
+  void NavigateToDashboard(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DashboardPage()));
   }
 }

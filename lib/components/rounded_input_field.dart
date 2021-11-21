@@ -5,8 +5,10 @@ import 'package:jaib/style.dart';
 class RoundedInputField extends StatefulWidget {
   String hint;
   bool? securedText;
+  Function(String?)? onChanged;
 
-  RoundedInputField(this.hint, {Key? key, this.securedText}) : super(key: key);
+  RoundedInputField(this.hint, {Key? key, this.securedText, this.onChanged})
+      : super(key: key);
 
   @override
   _RoundedInputFieldState createState() => _RoundedInputFieldState();
@@ -34,6 +36,8 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
       child: Form(
         key: _formKey,
         child: TextFormField(
+          onChanged: (value) =>
+              widget.onChanged != null ? widget.onChanged!(value) : {},
           enableSuggestions: false,
           autocorrect: false,
           obscureText: widget.securedText ?? false,
