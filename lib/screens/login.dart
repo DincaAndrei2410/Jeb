@@ -8,7 +8,12 @@ import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/style.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+
+  int? usernameLength;
+  int? passwordLength;
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +39,43 @@ class LoginPage extends StatelessWidget {
                   const Text("Please log in to transfer money now!",
                       style: SubtitleTextStyle),
                   const SizedBox(height: 16),
-                  RoundedInputField("Username"),
+                  RoundedInputField(
+                    "Username",
+                    onChanged: (text) {
+                      usernameLength = text?.length;
+                      isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
+                          ((passwordLength ?? 0) > 0);
+                    },
+                  ),
                   const SizedBox(height: 16),
                   RoundedInputField(
                     "Password",
+                    onChanged: (text) {
+                      passwordLength = text?.length;
+                      isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
+                          ((passwordLength ?? 0) > 0);
+                    },
                     securedText: true,
                   ),
                   const SizedBox(height: 32),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      RoundedButton(
-                          "Login", GreenColor, Colors.transparent, Colors.white,
-                          onPressed: () => NavigateToDashboard(context)),
+                      ValueListenableBuilder<bool>(
+                        builder:
+                            (BuildContext context, bool value, Widget? child) {
+                          return RoundedButton(
+                            "Login",
+                            GreenColor,
+                            Colors.transparent,
+                            Colors.white,
+                            onPressed: () => NavigateToDashboard(context),
+                            isEnabled: value,
+                            key: UniqueKey(),
+                          );
+                        },
+                        valueListenable: isButtonEnabled,
+                      ),
                       const SizedBox(height: 8),
                       const Text("or", style: SubtitleTextStyle),
                       const SizedBox(height: 8),

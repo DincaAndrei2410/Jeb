@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaib/models/SendMoneyDetails.dart';
+import 'package:jaib/services/send_money_details.dart';
 
 import '../style.dart';
 

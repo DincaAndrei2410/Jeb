@@ -3,7 +3,7 @@ import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/summary.dart';
-import 'package:jaib/models/SendMoneyDetails.dart';
+import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/dashboard.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
@@ -40,7 +40,9 @@ class SendMoneyCongratulationsPage extends StatelessWidget {
   }
 
   void NavigateToDashboard(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DashboardPage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardPage()),
+        (Route<dynamic> r) => false);
   }
 }

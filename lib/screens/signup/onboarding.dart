@@ -3,7 +3,7 @@ import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/components/view_pager.dart';
-import 'package:jaib/models/ViewPagerModel.dart';
+import 'package:jaib/models/view_pager_model.dart';
 import 'package:jaib/screens/login.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/style.dart';
@@ -34,7 +34,9 @@ class OnboardingPage extends StatelessWidget {
   }
 
   void NavigateToSignup(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+        (Route<dynamic> r) => false);
   }
 }

@@ -17,14 +17,23 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textTheme: const TextTheme(
-            headline1: HeadlineTextStyle,
-            subtitle1: SubtitleTextStyle,
-          )),
-      home: const LoginPage(),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
+      child: MaterialApp(
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: const TextTheme(
+              headline1: HeadlineTextStyle,
+              subtitle1: SubtitleTextStyle,
+            )),
+        home: LoginPage(),
+      ),
     );
   }
 }

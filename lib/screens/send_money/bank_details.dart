@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
-import 'package:jaib/models/SendMoneyDetails.dart';
+import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/send_money/transfer_summary.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
@@ -65,9 +65,9 @@ class BankDetailsPage extends StatelessWidget {
   }
 
   void NavigateToCardNumber(BuildContext context) {
-    SendMoneyDetails.LocalStorage.bankName = bankName ?? "";
-    SendMoneyDetails.LocalStorage.accountNumber = accountNumber ?? "";
-    SendMoneyDetails.LocalStorage.purpose = purpose ?? "";
+    SendMoneyDetails.LocalSendMoneyDetails.bankName = bankName ?? "";
+    SendMoneyDetails.LocalSendMoneyDetails.accountNumber = accountNumber ?? "";
+    SendMoneyDetails.LocalSendMoneyDetails.purpose = purpose ?? "";
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => TransferSummaryPage()));

@@ -5,5 +5,5 @@ class SendMoneyDetails {
   String? country;
   String? purpose;
 
-  static SendMoneyDetails LocalStorage = SendMoneyDetails();
+  static SendMoneyDetails LocalSendMoneyDetails = SendMoneyDetails();
 }

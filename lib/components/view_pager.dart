@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:jaib/models/ViewPagerModel.dart';
+import 'package:jaib/models/view_pager_model.dart';
 import 'package:jaib/style.dart';
 
 class PagerWithDots extends StatefulWidget {

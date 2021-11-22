@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jaib/models/Country.dart';
+import 'package:jaib/models/country.dart';
+import 'package:jaib/services/country_service.dart';
 
 import '../style.dart';
 
@@ -20,12 +21,7 @@ class _CountriesDropDownInpuFieldState
   @override
   void initState() {
     _dropdownItems.clear();
-    _dropdownItems.add(Country("India", "India.png"));
-    _dropdownItems.add(Country("Pakistan", "Pakistan.png"));
-    _dropdownItems.add(Country("Bangladesh", "Bangladesh.png"));
-    _dropdownItems.add(Country("Nepal", "Nepal.png"));
-    _dropdownItems.add(Country("Sri Lanka", "SriLanka.png"));
-    _dropdownItems.add(Country("Philippines", "Philippines.png"));
+    _dropdownItems = CountryService.allCountries.toList();
     _dropDownValue = _dropdownItems[0];
   }
 

@@ -6,6 +6,7 @@ const ButtonTextSize = 18.0;
 const MediumTextSize = 16.0;
 const SmallTextSize = 14.0;
 const SubtitleTextSize = 12.0;
+const VerySmallTextSize = 10.0;
 
 const String FontNameDefault = 'Montserrat';
 
@@ -66,6 +67,12 @@ const SubtitleTextStyle = TextStyle(
     fontSize: SubtitleTextSize,
     color: SubtitleColor);
 
+const BoldSubtitleTextStyle = TextStyle(
+    fontFamily: FontNameDefault,
+    fontWeight: FontWeight.w700,
+    fontSize: SubtitleTextSize,
+    color: GreenColor);
+
 const InputHintStyle = TextStyle(
     fontFamily: FontNameDefault,
     fontWeight: FontWeight.w500,
@@ -88,3 +95,10 @@ const ButtonTextStyle = TextStyle(
     fontFamily: FontNameDefault,
     fontWeight: FontWeight.w500,
     fontSize: ButtonTextSize);
+
+const BoldVerySmallSizeTextStyle = TextStyle(
+  fontFamily: FontNameDefault,
+  fontWeight: FontWeight.w700,
+  fontSize: VerySmallTextSize,
+  color: HeadlineColor,
+);

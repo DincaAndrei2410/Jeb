@@ -3,10 +3,12 @@ import 'package:jaib/components/recent_transfers.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
-import 'package:jaib/models/Transfer.dart';
+import 'package:jaib/models/transfer.dart';
+import 'package:jaib/screens/send_money/amount.dart';
 import 'package:jaib/screens/send_money/personal_details.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
+import 'package:jaib/services/transfer_service.dart';
 import 'package:jaib/style.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -40,7 +42,7 @@ class _DashboardPageState extends State<DashboardPage> {
               color: DashboardBackgroundColor,
             ),
             RecentTransferContainer(
-              childWidget: RecentTransfers(Transfer.Transfers),
+              childWidget: RecentTransfers(TransferService.Transfers),
             ),
             CardBalanceWidget(),
           ],
@@ -50,8 +52,8 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void NavigateToSendMoneyScreen(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => PersonalDetailsPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AmountPage()));
   }
 }
 

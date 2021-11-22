@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
-import 'package:jaib/models/SendMoneyDetails.dart';
+import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
 
@@ -54,7 +54,8 @@ class PersonalDetailsPage extends StatelessWidget {
   }
 
   void NavigateToBankDetailsNumber(BuildContext context) {
-    SendMoneyDetails.LocalStorage.name = "${firstName ?? ""} ${lastName ?? ""}";
+    SendMoneyDetails.LocalSendMoneyDetails.name =
+        "${firstName ?? ""} ${lastName ?? ""}";
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => BankDetailsPage()));
   }

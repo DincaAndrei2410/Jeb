@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jaib/models/Months.dart';
-import 'package:jaib/models/Transfer.dart';
+import 'package:jaib/models/months.dart';
+import 'package:jaib/models/transfer.dart';
 
 import '../style.dart';
 
