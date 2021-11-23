@@ -15,7 +15,9 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+        ),
         body: SingleChildScrollView(
           child: Container(
               child: Padding(

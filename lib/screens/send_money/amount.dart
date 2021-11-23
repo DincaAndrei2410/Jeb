@@ -35,6 +35,8 @@ class _AmountPageState extends State<AmountPage> {
   User? currentUser;
 
   final ValueNotifier<double> receiveValue = ValueNotifier<double>(1);
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> hasErrors = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,10 @@ class _AmountPageState extends State<AmountPage> {
     currentUser = CurrentUserService.currentUser;
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+          elevation: 0,
+        ),
         body: SingleChildScrollView(
           child: Center(
               child: Padding(
@@ -52,15 +57,35 @@ class _AmountPageState extends State<AmountPage> {
               const Text("How much do you want to send?",
                   style: HeadlineTextStyle),
               const SizedBox(height: 24),
-              RoundedInputField(
-                "You send",
-                onChanged: (text) => SaveAmount(text),
-                initialValue: "1.00",
-                currency: "AED",
-                countryFlag: "UAE.png",
-                isNumerical: true,
+              ValueListenableBuilder<bool>(
+                builder: (BuildContext context, bool value, Widget? child) {
+                  if (value) {
+                    return RoundedInputField(
+                      "You send",
+                      onChanged: (text) => SaveAmount(text),
+                      onTapped: () => hasErrors.value = false,
+                      initialValue: "1.00",
+                      currency: "AED",
+                      countryFlag: "UAE.png",
+                      isNumerical: true,
+                      hasErrors: true,
+                      errorText: "You do not have enough balance, try again",
+                    );
+                  } else {
+                    return RoundedInputField(
+                      "You send",
+                      onChanged: (text) => SaveAmount(text),
+                      onTapped: () => hasErrors.value = false,
+                      initialValue: "1.00",
+                      currency: "AED",
+                      countryFlag: "UAE.png",
+                      isNumerical: true,
+                    );
+                  }
+                },
+                valueListenable: hasErrors,
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 20),
               ValueListenableBuilder<double>(
                 builder: (BuildContext context, double value, Widget? child) {
                   var receiveValue = FormatReceiveValue(value);
@@ -100,7 +125,7 @@ class _AmountPageState extends State<AmountPage> {
                               .currencyForCountry[currentUser?.country.name]!,
                           rates![e]!.toStringAsFixed(2),
                           e,
-                          e == "today"))
+                          e == "Today"))
                       .toList()),
               const SizedBox(height: 24),
               Text(
@@ -108,13 +133,20 @@ class _AmountPageState extends State<AmountPage> {
                 style: InputFieldTextStyle,
               ),
               const SizedBox(height: 24),
-              RoundedButton(
-                "Send Now",
-                GreenColor,
-                Colors.transparent,
-                Colors.white,
-                onPressed: () => NavigateToDashboard(context),
-              ),
+              ValueListenableBuilder<bool>(
+                builder: (BuildContext context, bool value, Widget? child) {
+                  return RoundedButton(
+                    "Send Now",
+                    GreenColor,
+                    Colors.transparent,
+                    Colors.white,
+                    onPressed: () => NavigateToDashboard(context),
+                    isEnabled: value,
+                    key: UniqueKey(),
+                  );
+                },
+                valueListenable: isButtonEnabled,
+              )
             ]),
           )),
         ));
@@ -122,7 +154,9 @@ class _AmountPageState extends State<AmountPage> {
 
   SaveAmount(String? amount) {
     this.amount = amount;
-    receiveValue.value = double.tryParse(amount!) ?? 0;
+    var parsedValue = double.tryParse(amount!) ?? 0;
+    receiveValue.value = parsedValue;
+    isButtonEnabled.value = (amount?.length ?? 0) > 0 && parsedValue > 1;
   }
 
   String FormatReceiveValue(double? amount) {
@@ -130,6 +164,13 @@ class _AmountPageState extends State<AmountPage> {
   }
 
   void NavigateToDashboard(BuildContext context) {
+    var parsedAmount = double.tryParse(this.amount!) ?? 0;
+
+    if (parsedAmount > (currentUser?.balance ?? 0)) {
+      hasErrors.value = true;
+      return;
+    }
+
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => PersonalDetailsPage()));
   }

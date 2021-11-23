@@ -10,6 +10,8 @@ import 'package:jaib/style.dart';
 class BankDetailsPage extends StatelessWidget {
   BankDetailsPage({Key? key}) : super(key: key);
 
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+
   String? bankName;
   String? accountNumber;
   String? purpose;
@@ -17,7 +19,9 @@ class BankDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+        ),
         body: SingleChildScrollView(
             child: Center(
                 child: Padding(
@@ -28,12 +32,18 @@ class BankDetailsPage extends StatelessWidget {
             const SizedBox(height: 24),
             RoundedInputField(
               "Bank Name",
-              onChanged: (text) => SaveBankName(text),
+              onChanged: (text) {
+                SaveBankName(text);
+                CheckIsButtonEnabled();
+              },
             ),
             const SizedBox(height: 8),
             RoundedInputField(
               "Account Number",
-              onChanged: (text) => SaveAccountNumber(text),
+              onChanged: (text) {
+                SaveAccountNumber(text);
+                CheckIsButtonEnabled();
+              },
             ),
             const SizedBox(height: 8),
             RoundedInputField(
@@ -41,13 +51,20 @@ class BankDetailsPage extends StatelessWidget {
               onChanged: (text) => SavePurpose(text),
             ),
             const SizedBox(height: 24),
-            RoundedButton(
-              "Next",
-              GreenColor,
-              Colors.transparent,
-              Colors.white,
-              onPressed: () => NavigateToCardNumber(context),
-            ),
+            ValueListenableBuilder<bool>(
+              builder: (BuildContext context, bool value, Widget? child) {
+                return RoundedButton(
+                  "Next",
+                  GreenColor,
+                  Colors.transparent,
+                  Colors.white,
+                  onPressed: () => NavigateToCardNumber(context),
+                  isEnabled: value,
+                  key: UniqueKey(),
+                );
+              },
+              valueListenable: isButtonEnabled,
+            )
           ]),
         ))));
   }
@@ -62,6 +79,11 @@ class BankDetailsPage extends StatelessWidget {
 
   void SavePurpose(String? purpose) {
     this.purpose = purpose ?? "";
+  }
+
+  void CheckIsButtonEnabled() {
+    isButtonEnabled.value =
+        (bankName?.length ?? 0) > 0 && (accountNumber?.length ?? 0) > 0;
   }
 
   void NavigateToCardNumber(BuildContext context) {

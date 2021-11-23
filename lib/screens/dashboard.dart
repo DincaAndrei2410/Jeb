@@ -4,10 +4,12 @@ import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/models/transfer.dart';
+import 'package:jaib/models/user.dart';
 import 'package:jaib/screens/send_money/amount.dart';
 import 'package:jaib/screens/send_money/personal_details.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
+import 'package:jaib/services/current_user_service.dart';
 import 'package:jaib/services/transfer_service.dart';
 import 'package:jaib/style.dart';
 
@@ -22,6 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       bottomNavigationBar: Container(
         height: 70,
@@ -84,12 +87,16 @@ class RecentTransferContainer extends StatelessWidget {
 }
 
 class CardBalanceWidget extends StatelessWidget {
-  const CardBalanceWidget({
+  CardBalanceWidget({
     Key? key,
   }) : super(key: key);
 
+  User? currentUser;
+
   @override
   Widget build(BuildContext context) {
+    currentUser = CurrentUserService.currentUser;
+
     return Padding(
         padding: EdgeInsets.only(top: 80, left: 25, right: 25),
         child: Container(
@@ -119,7 +126,7 @@ class CardBalanceWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "AED 2,500.00",
+                    "AED ${(currentUser?.balance ?? 0).toStringAsFixed(2)}",
                     style: BalanceTextStyle,
                   ),
                   const SizedBox(height: 20),

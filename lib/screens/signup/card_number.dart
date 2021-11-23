@@ -7,12 +7,16 @@ import 'package:jaib/screens/signup/cvv_number.dart';
 import 'package:jaib/style.dart';
 
 class EnterCardNumberPage extends StatelessWidget {
-  const EnterCardNumberPage({Key? key}) : super(key: key);
+  EnterCardNumberPage({Key? key}) : super(key: key);
+
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+        ),
         body: SingleChildScrollView(
             child: Center(
                 child: Padding(
@@ -26,14 +30,27 @@ class EnterCardNumberPage extends StatelessWidget {
               width: 300,
             ),
             const SizedBox(height: 30),
-            NumberInputField(16, 17),
+            NumberInputField(
+              16,
+              17,
+              onChanged: (text) {
+                isButtonEnabled.value = (text?.length ?? 0) == 16;
+              },
+            ),
             const SizedBox(height: 32),
-            RoundedButton(
-              "Next",
-              GreenColor,
-              Colors.transparent,
-              Colors.white,
-              onPressed: () => NavigateToCVVNumber(context),
+            ValueListenableBuilder<bool>(
+              builder: (BuildContext context, bool value, Widget? child) {
+                return RoundedButton(
+                  "Next",
+                  GreenColor,
+                  Colors.transparent,
+                  Colors.white,
+                  onPressed: () => NavigateToCVVNumber(context),
+                  isEnabled: value,
+                  key: UniqueKey(),
+                );
+              },
+              valueListenable: isButtonEnabled,
             ),
           ]),
         ))));

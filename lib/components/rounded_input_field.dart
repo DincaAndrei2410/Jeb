@@ -11,6 +11,10 @@ class RoundedInputField extends StatefulWidget {
   String? countryFlag;
   bool? isNumerical;
   bool? interactionEnabled;
+  bool? hasErrors;
+  String? errorText;
+  Function()? onTapped;
+  TextEditingController? controller;
 
   RoundedInputField(this.hint,
       {Key? key,
@@ -20,7 +24,11 @@ class RoundedInputField extends StatefulWidget {
       this.currency,
       this.countryFlag,
       this.isNumerical,
-      this.interactionEnabled})
+      this.interactionEnabled,
+      this.hasErrors,
+      this.errorText,
+      this.onTapped,
+      this.controller})
       : super(key: key);
 
   @override
@@ -28,7 +36,7 @@ class RoundedInputField extends StatefulWidget {
 }
 
 class _RoundedInputFieldState extends State<RoundedInputField> {
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   FocusNode? focusNode;
 
   @override
@@ -49,6 +57,14 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
       child: Form(
         key: _formKey,
         child: TextFormField(
+            controller: widget.controller,
+            onTap: widget.onTapped,
+            validator: (text) {
+              if (widget.hasErrors ?? false) {
+                return widget.errorText ?? "";
+              }
+              return null;
+            },
             enableInteractiveSelection:
                 (widget.interactionEnabled ?? true) ? true : false,
             initialValue: widget.initialValue,
@@ -74,11 +90,21 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
                       )
                     : null,
                 floatingLabelBehavior: FloatingLabelBehavior.auto,
+                errorText: widget.errorText,
                 labelText: widget.hint,
                 labelStyle: InputHintStyle,
                 fillColor: FieldBackgroundColor,
                 hoverColor: FieldBackgroundColor,
                 filled: true,
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(color: Colors.red, width: 1)),
+                focusedErrorBorder: const UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 0.1,
+                    )),
                 enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(16))),

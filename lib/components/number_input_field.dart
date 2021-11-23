@@ -5,8 +5,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class NumberInputField extends StatefulWidget {
   int length;
   double fieldWidth;
+  Function(String?)? onChanged;
 
-  NumberInputField(this.length, this.fieldWidth, {Key? key}) : super(key: key);
+  NumberInputField(this.length, this.fieldWidth, {Key? key, this.onChanged})
+      : super(key: key);
 
   @override
   _NumberInputFieldState createState() => _NumberInputFieldState();
@@ -34,10 +36,10 @@ class _NumberInputFieldState extends State<NumberInputField> {
             activeColor: GreenColor,
             selectedColor: GreenColor),
         onChanged: (value) {
-          print(value);
           setState(() {
             currentText = value;
           });
+          widget.onChanged != null ? widget.onChanged!(value) : {};
         },
       ),
     );

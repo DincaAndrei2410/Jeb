@@ -2,6 +2,7 @@ import 'country.dart';
 
 class User {
   Country country;
+  double balance;
 
-  User(this.country);
+  User(this.country, this.balance);
 }

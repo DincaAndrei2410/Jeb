@@ -8,12 +8,16 @@ import 'package:jaib/style.dart';
 import 'cvv_number.dart';
 
 class EnterDetailsPage extends StatelessWidget {
-  const EnterDetailsPage({Key? key}) : super(key: key);
+  EnterDetailsPage({Key? key}) : super(key: key);
+
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+        ),
         body: SingleChildScrollView(
             child: Center(
                 child: Padding(
@@ -27,16 +31,28 @@ class EnterDetailsPage extends StatelessWidget {
             const SizedBox(height: 30),
             const Text("Enter your details", style: HeadlineTextStyle),
             const SizedBox(height: 30),
-            RoundedInputField("Enter your name"),
+            RoundedInputField(
+              "Enter your name",
+              onChanged: (text) {
+                isButtonEnabled.value = (text?.length ?? 0) > 0;
+              },
+            ),
             const SizedBox(height: 16),
             CountriesDropDownInpuField("Choose your country"),
             const SizedBox(height: 24),
-            RoundedButton(
-              "Next",
-              GreenColor,
-              Colors.transparent,
-              Colors.white,
-              onPressed: () => NavigateToCardNumber(context),
+            ValueListenableBuilder<bool>(
+              builder: (BuildContext context, bool value, Widget? child) {
+                return RoundedButton(
+                  "Next",
+                  GreenColor,
+                  Colors.transparent,
+                  Colors.white,
+                  onPressed: () => NavigateToCardNumber(context),
+                  isEnabled: value,
+                  key: UniqueKey(),
+                );
+              },
+              valueListenable: isButtonEnabled,
             ),
           ]),
         ))));

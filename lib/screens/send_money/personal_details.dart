@@ -11,13 +11,17 @@ import 'bank_details.dart';
 class PersonalDetailsPage extends StatelessWidget {
   PersonalDetailsPage({Key? key}) : super(key: key);
 
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+
   String? firstName;
   String? lastName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: GreenColor,
+        ),
         body: SingleChildScrollView(
             child: Center(
                 child: Padding(
@@ -26,21 +30,33 @@ class PersonalDetailsPage extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Text("Who are you sending to?", style: HeadlineTextStyle),
             const SizedBox(height: 24),
-            RoundedInputField("First Name",
-                onChanged: (text) => SaveFirstName(text)),
+            RoundedInputField("First Name", onChanged: (text) {
+              SaveFirstName(text);
+              CheckIsButtonEnabled();
+            }),
             const SizedBox(height: 8),
             RoundedInputField(
               "Last Name",
-              onChanged: (text) => SaveLastName(text),
+              onChanged: (text) {
+                SaveLastName(text);
+                CheckIsButtonEnabled();
+              },
             ),
             const SizedBox(height: 24),
-            RoundedButton(
-              "Next",
-              GreenColor,
-              Colors.transparent,
-              Colors.white,
-              onPressed: () => NavigateToBankDetailsNumber(context),
-            ),
+            ValueListenableBuilder<bool>(
+              builder: (BuildContext context, bool value, Widget? child) {
+                return RoundedButton(
+                  "Next",
+                  GreenColor,
+                  Colors.transparent,
+                  Colors.white,
+                  onPressed: () => NavigateToBankDetailsNumber(context),
+                  isEnabled: value,
+                  key: UniqueKey(),
+                );
+              },
+              valueListenable: isButtonEnabled,
+            )
           ]),
         ))));
   }
@@ -51,6 +67,11 @@ class PersonalDetailsPage extends StatelessWidget {
 
   void SaveLastName(String? lastName) {
     this.lastName = lastName ?? "";
+  }
+
+  void CheckIsButtonEnabled() {
+    isButtonEnabled.value =
+        (firstName?.length ?? 0) > 0 && (lastName?.length ?? 0) > 0;
   }
 
   void NavigateToBankDetailsNumber(BuildContext context) {
