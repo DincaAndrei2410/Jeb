@@ -105,10 +105,10 @@ class _AmountPageState extends State<AmountPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
-                    "assets/images/flags/rate_icon.png",
+                    "assets/images/amount_rate_icon.png",
                     fit: BoxFit.contain,
                     width: 16,
-                    height: 8,
+                    height: 10,
                   ),
                   const SizedBox(width: 10),
                   Text(

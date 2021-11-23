@@ -29,7 +29,7 @@ class _PagerWithDotsState extends State<PagerWithDots> {
   @override
   void initState() {
     for (var model in widget.models) {
-      _pages.add(new Column(
+      _pages.add(Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -52,12 +52,12 @@ class _PagerWithDotsState extends State<PagerWithDots> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       height: 450,
-      child: new Stack(
+      child: Stack(
         children: <Widget>[
-          new PageView.builder(
-            physics: new AlwaysScrollableScrollPhysics(),
+          PageView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
             controller: _controller,
             onPageChanged: (int page) {
               getChangedPageAndMoveBar(page);
@@ -66,14 +66,14 @@ class _PagerWithDotsState extends State<PagerWithDots> {
               return _pages[index % _pages.length];
             },
           ),
-          new Positioned(
+          Positioned(
             bottom: 0.0,
             left: 0.0,
             right: 0.0,
-            child: new Container(
+            child: Container(
               padding: const EdgeInsets.all(20.0),
-              child: new Center(
-                child: new DotsIndicator(
+              child: Center(
+                child: DotsIndicator(
                   page: _currentPage,
                   itemCount: _pages.length,
                 ),
@@ -110,14 +110,14 @@ class DotsIndicator extends StatelessWidget {
   static const double _kDotSpacing = 25.0;
 
   Widget _buildDot(int index) {
-    bool isSelected = (page ?? 0) == index;
-    return new Container(
+    bool isSelected = ((page ?? 0) % (itemCount ?? 0)) == index;
+    return Container(
         width: _kDotSpacing,
         child: InkResponse(
-          child: new Container(
+          child: Container(
               width: _kDotSize,
               height: _kDotSize,
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                   color: isSelected ? GreenColor : Colors.white,
                   borderRadius: isSelected ? BorderRadius.circular(10) : null,
                   shape: isSelected ? BoxShape.rectangle : BoxShape.circle,
@@ -126,9 +126,9 @@ class DotsIndicator extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: new List<Widget>.generate(itemCount!, _buildDot),
+      children: List<Widget>.generate(itemCount!, _buildDot),
     );
   }
 }

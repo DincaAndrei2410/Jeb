@@ -81,7 +81,7 @@ flutter:
     - assets/images/secure_pin_image.png
     - assets/images/transfer_icon.png
     - assets/images/send_money_image.png
-    - assets/images/rate_icon.png
+    - assets/images/amount_rate_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

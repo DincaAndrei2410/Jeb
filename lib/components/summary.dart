@@ -28,7 +28,7 @@ class Summary extends StatelessWidget {
                       style: BoldSmallSizeTextStyle,
                     ),
                     Text(
-                      "AED 100",
+                      "AED ${summaryDetails.transferAmount}",
                       style: Regular14SizeTextStyle,
                     )
                   ],
