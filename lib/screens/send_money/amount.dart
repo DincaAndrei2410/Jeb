@@ -40,6 +40,7 @@ class _AmountPageState extends State<AmountPage> {
 
   @override
   Widget build(BuildContext context) {
+    amount = "1.0";
     rates = RateService.rates;
     todayRate = rates!["Today"];
     currentUser = CurrentUserService.currentUser;
@@ -164,12 +165,15 @@ class _AmountPageState extends State<AmountPage> {
   }
 
   void NavigateToDashboard(BuildContext context) {
-    var parsedAmount = double.tryParse(this.amount!) ?? 0;
+    var parsedAmount = double.tryParse(amount!) ?? 0;
 
     if (parsedAmount > (currentUser?.balance ?? 0)) {
       hasErrors.value = true;
       return;
     }
+
+    SendMoneyDetails.LocalSendMoneyDetails.country = "India";
+    SendMoneyDetails.LocalSendMoneyDetails.transferAmount = amount;
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => PersonalDetailsPage()));
