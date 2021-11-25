@@ -3,6 +3,7 @@ import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/summary.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
@@ -23,12 +24,12 @@ class TransferSummaryPage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("Summary", style: HeadlineTextStyle),
+            Text(Strings.Summary!, style: HeadlineTextStyle),
             const SizedBox(height: 16),
             Summary(SendMoneyDetails.LocalSendMoneyDetails),
             const SizedBox(height: 24),
             RoundedButton(
-              "Confirm",
+              Strings.Confirm!,
               GreenColor,
               Colors.transparent,
               Colors.white,

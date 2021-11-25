@@ -3,6 +3,7 @@ import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/summary.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/dashboard.dart';
 import 'package:jaib/screens/signup/card_number.dart';
@@ -23,13 +24,13 @@ class SendMoneyCongratulationsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Your money is on the way", style: HeadlineTextStyle),
+            Text(Strings.MoneyOnTheWay!, style: HeadlineTextStyle),
             const SizedBox(height: 55),
             Image.asset("assets/images/send_money_image.png",
                 fit: BoxFit.scaleDown),
             const SizedBox(height: 48),
             RoundedButton(
-              "Ok, Got it",
+              Strings.OkGotIt!,
               GreenColor,
               Colors.transparent,
               Colors.white,

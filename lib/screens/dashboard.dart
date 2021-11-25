@@ -10,6 +10,7 @@ import 'package:jaib/screens/send_money/personal_details.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/services/current_user_service.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/transfer_service.dart';
 import 'package:jaib/style.dart';
 
@@ -33,7 +34,7 @@ class _DashboardPageState extends State<DashboardPage> {
             child: MaterialButton(
               onPressed: () => {NavigateToSendMoneyScreen(context)},
               child: Text(
-                "Send Money",
+                Strings.SendMoney!,
                 style: WhiteHeadlineTextStyle,
               ),
             )),

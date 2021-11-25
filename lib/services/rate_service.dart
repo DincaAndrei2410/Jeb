@@ -1,7 +1,9 @@
+import 'language_service.dart';
+
 class RateService {
   static Map<String, double> rates = {
-    "Today": 20.21,
-    "Tomorrow": 19.21,
-    "Day After": 19.88
+    Strings.Today!: 20.21,
+    Strings.Tomorrow!: 19.21,
+    Strings.DayAfter!: 19.88
   };
 }

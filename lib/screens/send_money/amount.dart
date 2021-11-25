@@ -7,6 +7,7 @@ import 'package:jaib/components/summary.dart';
 import 'package:jaib/models/country.dart';
 import 'package:jaib/models/user.dart';
 import 'package:jaib/services/current_user_service.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/rate_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/dashboard.dart';
@@ -42,7 +43,7 @@ class _AmountPageState extends State<AmountPage> {
   Widget build(BuildContext context) {
     amount = "1.0";
     rates = RateService.rates;
-    todayRate = rates!["Today"];
+    todayRate = rates![Strings.Today!];
     currentUser = CurrentUserService.currentUser;
 
     return Scaffold(
@@ -55,14 +56,13 @@ class _AmountPageState extends State<AmountPage> {
               child: Padding(
             padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
             child: Column(children: [
-              const Text("How much do you want to send?",
-                  style: HeadlineTextStyle),
+              Text(Strings.HowMuchToSend!, style: HeadlineTextStyle),
               const SizedBox(height: 24),
               ValueListenableBuilder<bool>(
                 builder: (BuildContext context, bool value, Widget? child) {
                   if (value) {
                     return RoundedInputField(
-                      "You send",
+                      Strings.YouSend!,
                       onChanged: (text) => SaveAmount(text),
                       onTapped: () => hasErrors.value = false,
                       initialValue: "1.00",
@@ -70,11 +70,11 @@ class _AmountPageState extends State<AmountPage> {
                       countryFlag: "UAE.png",
                       isNumerical: true,
                       hasErrors: true,
-                      errorText: "You do not have enough balance, try again",
+                      errorText: Strings.NotEnoughBalanceTryAgain!,
                     );
                   } else {
                     return RoundedInputField(
-                      "You send",
+                      Strings.YouSend!,
                       onChanged: (text) => SaveAmount(text),
                       onTapped: () => hasErrors.value = false,
                       initialValue: "1.00",
@@ -91,7 +91,7 @@ class _AmountPageState extends State<AmountPage> {
                 builder: (BuildContext context, double value, Widget? child) {
                   var receiveValue = FormatReceiveValue(value);
                   return RoundedInputField(
-                    "They receive",
+                    Strings.TheyReceive!,
                     initialValue: receiveValue,
                     countryFlag: currentUser?.country.flag,
                     interactionEnabled: false,
@@ -126,18 +126,18 @@ class _AmountPageState extends State<AmountPage> {
                               .currencyForCountry[currentUser?.country.name]!,
                           rates![e]!.toStringAsFixed(2),
                           e,
-                          e == "Today"))
+                          e == Strings.Today!))
                       .toList()),
               const SizedBox(height: 24),
               Text(
-                "We recommend you transfer today",
+                Strings.RecommendTransferToday!,
                 style: InputFieldTextStyle,
               ),
               const SizedBox(height: 24),
               ValueListenableBuilder<bool>(
                 builder: (BuildContext context, bool value, Widget? child) {
                   return RoundedButton(
-                    "Send Now",
+                    Strings.SendNow!,
                     GreenColor,
                     Colors.transparent,
                     Colors.white,

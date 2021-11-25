@@ -6,6 +6,7 @@ import 'package:jaib/components/view_pager.dart';
 import 'package:jaib/models/view_pager_model.dart';
 import 'package:jaib/screens/login.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class OnboardingPage extends StatelessWidget {
                         const SizedBox(height: 32),
                         PagerWithDots(ViewPagerModel.OnboardingModels, size),
                         const SizedBox(height: 32),
-                        RoundedButton("Ok, got it!", GreenColor,
+                        RoundedButton(Strings.OkGotIt!, GreenColor,
                             Colors.transparent, Colors.white,
                             onPressed: () => {NavigateToSignup(context)}),
                       ]))),

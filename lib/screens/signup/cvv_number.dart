@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/number_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/screens/signup/password.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
 class EnterCVVNumberPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class EnterCVVNumberPage extends StatelessWidget {
                 child: Padding(
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child: Column(children: [
-            const Text("Enter CVV", style: HeadlineTextStyle),
+            Text(Strings.EnterCVV!, style: HeadlineTextStyle),
             const SizedBox(height: 30),
             Image.asset(
               "assets/images/back_card.png",
@@ -44,7 +45,7 @@ class EnterCVVNumberPage extends StatelessWidget {
             ValueListenableBuilder<bool>(
               builder: (BuildContext context, bool value, Widget? child) {
                 return RoundedButton(
-                  "Next",
+                  Strings.Next!,
                   GreenColor,
                   Colors.transparent,
                   Colors.white,

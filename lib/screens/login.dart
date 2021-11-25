@@ -5,18 +5,26 @@ import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/screens/dashboard.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
 
   int? usernameLength;
+
   int? passwordLength;
 
   @override
   Widget build(BuildContext context) {
+    Strings.InitialiseLanguage();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -34,13 +42,12 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Welcome to Jeb!", style: HeadlineTextStyle),
+                  Text(Strings.WelcomeToJeb!, style: HeadlineTextStyle),
                   const SizedBox(height: 6),
-                  const Text("Please log in to transfer money now!",
-                      style: SubtitleTextStyle),
+                  Text(Strings.PleaseLogIn!, style: SubtitleTextStyle),
                   const SizedBox(height: 16),
                   RoundedInputField(
-                    "Username",
+                    Strings.Username!,
                     onChanged: (text) {
                       usernameLength = text?.length;
                       isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
@@ -49,7 +56,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   RoundedInputField(
-                    "Password",
+                    Strings.Password!,
                     onChanged: (text) {
                       passwordLength = text?.length;
                       isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
@@ -65,7 +72,7 @@ class LoginPage extends StatelessWidget {
                         builder:
                             (BuildContext context, bool value, Widget? child) {
                           return RoundedButton(
-                            "Login",
+                            Strings.Login!,
                             GreenColor,
                             Colors.transparent,
                             Colors.white,
@@ -77,13 +84,20 @@ class LoginPage extends StatelessWidget {
                         valueListenable: isButtonEnabled,
                       ),
                       const SizedBox(height: 8),
-                      const Text("or", style: SubtitleTextStyle),
+                      Text(Strings.Or!, style: SubtitleTextStyle),
                       const SizedBox(height: 8),
                       RoundedButton(
-                          "Sign up", Colors.white, GreenColor, GreenColor,
+                          Strings.SignUp!, Colors.white, GreenColor, GreenColor,
                           onPressed: () => NavigateToSignup(context)),
                       const SizedBox(height: 24),
-                      UnderlinedTextButton("Change to hindi", GreenColor)
+                      UnderlinedTextButton(
+                        Strings.ChangeTo!,
+                        GreenColor,
+                        onPressed: () {
+                          Strings.FlipLanguage();
+                          setState(() {});
+                        },
+                      )
                     ],
                   ),
                 ],

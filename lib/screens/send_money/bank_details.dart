@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/send_money/transfer_summary.dart';
 import 'package:jaib/screens/signup/card_number.dart';
@@ -28,10 +29,10 @@ class BankDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("Enter your bank details", style: HeadlineTextStyle),
+            Text(Strings.EnterBankDetails!, style: HeadlineTextStyle),
             const SizedBox(height: 24),
             RoundedInputField(
-              "Bank Name",
+              Strings.BankName!,
               onChanged: (text) {
                 SaveBankName(text);
                 CheckIsButtonEnabled();
@@ -39,7 +40,7 @@ class BankDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             RoundedInputField(
-              "Account Number",
+              Strings.AccountNumber!,
               onChanged: (text) {
                 SaveAccountNumber(text);
                 CheckIsButtonEnabled();
@@ -47,14 +48,14 @@ class BankDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             RoundedInputField(
-              "Purpose",
+              Strings.Purpose!,
               onChanged: (text) => SavePurpose(text),
             ),
             const SizedBox(height: 24),
             ValueListenableBuilder<bool>(
               builder: (BuildContext context, bool value, Widget? child) {
                 return RoundedButton(
-                  "Next",
+                  Strings.Next!,
                   GreenColor,
                   Colors.transparent,
                   Colors.white,

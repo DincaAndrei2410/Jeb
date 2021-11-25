@@ -3,6 +3,7 @@ import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/screens/signup/card_number.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
 import 'cvv_number.dart';
@@ -29,21 +30,21 @@ class EnterDetailsPage extends StatelessWidget {
               width: 150,
             ),
             const SizedBox(height: 30),
-            const Text("Enter your details", style: HeadlineTextStyle),
+            Text(Strings.EnterYourDetails!, style: HeadlineTextStyle),
             const SizedBox(height: 30),
             RoundedInputField(
-              "Enter your name",
+              Strings.EnterYourName!,
               onChanged: (text) {
                 isButtonEnabled.value = (text?.length ?? 0) > 0;
               },
             ),
             const SizedBox(height: 16),
-            CountriesDropDownInpuField("Choose your country"),
+            CountriesDropDownInpuField(Strings.ChooseYourCountry!),
             const SizedBox(height: 24),
             ValueListenableBuilder<bool>(
               builder: (BuildContext context, bool value, Widget? child) {
                 return RoundedButton(
-                  "Next",
+                  Strings.Next!,
                   GreenColor,
                   Colors.transparent,
                   Colors.white,

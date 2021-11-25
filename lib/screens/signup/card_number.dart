@@ -4,6 +4,7 @@ import 'package:jaib/components/number_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/screens/signup/cvv_number.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
 class EnterCardNumberPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class EnterCardNumberPage extends StatelessWidget {
                 child: Padding(
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child: Column(children: [
-            const Text("Enter card number", style: HeadlineTextStyle),
+            Text(Strings.EnterYourDetails!, style: HeadlineTextStyle),
             const SizedBox(height: 30),
             Image.asset(
               "assets/images/front_card.png",
@@ -41,7 +42,7 @@ class EnterCardNumberPage extends StatelessWidget {
             ValueListenableBuilder<bool>(
               builder: (BuildContext context, bool value, Widget? child) {
                 return RoundedButton(
-                  "Next",
+                  Strings.Next!,
                   GreenColor,
                   Colors.transparent,
                   Colors.white,

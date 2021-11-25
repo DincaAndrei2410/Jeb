@@ -4,6 +4,7 @@ import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/style.dart';
 
 class PasswordPage extends StatelessWidget {
@@ -44,14 +45,14 @@ class PasswordPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Create an username and password",
+                      Text(
+                        Strings.CreateUsernameAndPassword!,
                         style: HeadlineTextStyle,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 24),
                       RoundedInputField(
-                        "Enter your username",
+                        Strings.EnterYourUsername!,
                         onChanged: (text) {
                           username = text;
                           CheckIsButtonEnabled();
@@ -63,7 +64,7 @@ class PasswordPage extends StatelessWidget {
                             (BuildContext context, bool value, Widget? child) {
                           if (value) {
                             return RoundedInputField(
-                              "Enter your password",
+                              Strings.EnterYourPassword!,
                               controller: passwordController,
                               securedText: true,
                               onChanged: (text) {
@@ -76,7 +77,7 @@ class PasswordPage extends StatelessWidget {
                             );
                           } else {
                             return RoundedInputField(
-                              "Enter your password",
+                              Strings.EnterYourPassword!,
                               controller: passwordController,
                               securedText: true,
                               onChanged: (text) {
@@ -95,7 +96,7 @@ class PasswordPage extends StatelessWidget {
                             (BuildContext context, bool value, Widget? child) {
                           if (value) {
                             return RoundedInputField(
-                              "Re-enter your password",
+                              Strings.ReEnterPassword!,
                               controller: reEnterPasswordController,
                               securedText: true,
                               onChanged: (text) {
@@ -103,12 +104,12 @@ class PasswordPage extends StatelessWidget {
                                 CheckIsButtonEnabled();
                               },
                               onTapped: () => hasErrors.value = false,
-                              errorText: "Password does not match, Try again.",
+                              errorText: Strings.PasswordDoesNotMatch!,
                               hasErrors: value,
                             );
                           } else {
                             return RoundedInputField(
-                              "Re-enter your password",
+                              Strings.ReEnterPassword!,
                               controller: reEnterPasswordController,
                               securedText: true,
                               onChanged: (text) {
@@ -126,7 +127,7 @@ class PasswordPage extends StatelessWidget {
                         builder:
                             (BuildContext context, bool value, Widget? child) {
                           return RoundedButton(
-                            "Sign up",
+                            Strings.SignUp!,
                             GreenColor,
                             Colors.transparent,
                             Colors.white,

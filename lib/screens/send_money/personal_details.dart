@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
+import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/style.dart';
@@ -28,15 +29,15 @@ class PersonalDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("Who are you sending to?", style: HeadlineTextStyle),
+            Text(Strings.WhoAreYouSendingTo!, style: HeadlineTextStyle),
             const SizedBox(height: 24),
-            RoundedInputField("First Name", onChanged: (text) {
+            RoundedInputField(Strings.FirstName!, onChanged: (text) {
               SaveFirstName(text);
               CheckIsButtonEnabled();
             }),
             const SizedBox(height: 8),
             RoundedInputField(
-              "Last Name",
+              Strings.LastName!,
               onChanged: (text) {
                 SaveLastName(text);
                 CheckIsButtonEnabled();
@@ -46,7 +47,7 @@ class PersonalDetailsPage extends StatelessWidget {
             ValueListenableBuilder<bool>(
               builder: (BuildContext context, bool value, Widget? child) {
                 return RoundedButton(
-                  "Next",
+                  Strings.Next!,
                   GreenColor,
                   Colors.transparent,
                   Colors.white,

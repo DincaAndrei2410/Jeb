@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jaib/models/months.dart';
 import 'package:jaib/models/transfer.dart';
+import 'package:jaib/services/language_service.dart';
 
 import '../style.dart';
 
@@ -17,7 +18,7 @@ class RecentTransfers extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Transfers",
+            Strings.RecentTransfer!,
             style: BoldMediumSizeTextStyle,
           ),
           Table(children: _buildTransferRows())
