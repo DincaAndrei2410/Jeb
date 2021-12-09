@@ -6,6 +6,7 @@ import 'package:jaib/screens/dashboard.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/login_service.dart';
 import 'package:jaib/style.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,10 +18,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> hasErrors = ValueNotifier<bool>(false);
 
-  int? usernameLength;
-
-  int? passwordLength;
+  String? username;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +47,68 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 6),
                   Text(Strings.PleaseLogIn!, style: SubtitleTextStyle),
                   const SizedBox(height: 16),
-                  RoundedInputField(
-                    Strings.Username!,
-                    onChanged: (text) {
-                      usernameLength = text?.length;
-                      isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
-                          ((passwordLength ?? 0) > 0);
+                  ValueListenableBuilder<bool>(
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      if (value) {
+                        return RoundedInputField(
+                          Strings.Username!,
+                          onChanged: (text) {
+                            username = text;
+                            isButtonEnabled.value =
+                                ((username?.length ?? 0) > 0) &&
+                                    ((password?.length ?? 0) > 0);
+                          },
+                          onTapped: () => hasErrors.value = false,
+                          errorText: "",
+                          hasErrors: value,
+                        );
+                      } else {
+                        return RoundedInputField(
+                          Strings.Username!,
+                          onChanged: (text) {
+                            username = text;
+                            isButtonEnabled.value =
+                                ((username?.length ?? 0) > 0) &&
+                                    ((password?.length ?? 0) > 0);
+                          },
+                          onTapped: () => hasErrors.value = false,
+                        );
+                      }
                     },
+                    valueListenable: hasErrors,
                   ),
                   const SizedBox(height: 16),
-                  RoundedInputField(
-                    Strings.Password!,
-                    onChanged: (text) {
-                      passwordLength = text?.length;
-                      isButtonEnabled.value = ((usernameLength ?? 0) > 0) &&
-                          ((passwordLength ?? 0) > 0);
+                  ValueListenableBuilder<bool>(
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      if (value) {
+                        return RoundedInputField(
+                          Strings.Password!,
+                          securedText: true,
+                          onChanged: (text) {
+                            password = text;
+                            isButtonEnabled.value =
+                                ((username?.length ?? 0) > 0) &&
+                                    ((password?.length ?? 0) > 0);
+                          },
+                          onTapped: () => hasErrors.value = false,
+                          errorText: Strings.IncorrectUsernameOrPassword!,
+                          hasErrors: value,
+                        );
+                      } else {
+                        return RoundedInputField(
+                          Strings.Password!,
+                          securedText: true,
+                          onChanged: (text) {
+                            password = text;
+                            isButtonEnabled.value =
+                                ((username?.length ?? 0) > 0) &&
+                                    ((password?.length ?? 0) > 0);
+                          },
+                          onTapped: () => hasErrors.value = false,
+                        );
+                      }
                     },
-                    securedText: true,
+                    valueListenable: hasErrors,
                   ),
                   const SizedBox(height: 32),
                   Column(
@@ -115,7 +161,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void NavigateToDashboard(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DashboardPage()));
+    LoginService.login(username!, password!).then((value) => {
+          if (value)
+            {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DashboardPage())),
+            }
+          else
+            {hasErrors.value = true}
+        });
   }
 }

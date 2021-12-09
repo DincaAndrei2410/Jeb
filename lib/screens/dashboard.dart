@@ -127,7 +127,7 @@ class CardBalanceWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "AED ${(currentUser?.balance ?? 0).toStringAsFixed(2)}",
+                    "AED ${(currentUser?.card?.balance ?? 0).toStringAsFixed(2)}",
                     style: BalanceTextStyle,
                   ),
                   const SizedBox(height: 20),

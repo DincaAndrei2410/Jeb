@@ -3,6 +3,8 @@ import 'package:jaib/components/number_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/screens/signup/password.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/signup_data_service.dart';
+import 'package:jaib/services/signup_service.dart';
 import 'package:jaib/style.dart';
 
 class EnterCVVNumberPage extends StatelessWidget {
@@ -61,7 +63,21 @@ class EnterCVVNumberPage extends StatelessWidget {
   }
 
   void NavigateToPassword(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PasswordPage()));
+    SignupService.verifyCVV(SignupData.CurrentSignupData.cardNumber!, cvv!)
+        .then((value) => {
+              if (value)
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PasswordPage()))
+              else
+                {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            content: Text("You entered an invalid cvv number",
+                                style: BoldMediumSizeTextStyle));
+                      })
+                }
+            });
   }
 }

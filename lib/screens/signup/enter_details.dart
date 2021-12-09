@@ -4,6 +4,7 @@ import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/screens/signup/card_number.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/signup_data_service.dart';
 import 'package:jaib/style.dart';
 
 import 'cvv_number.dart';
@@ -12,6 +13,7 @@ class EnterDetailsPage extends StatelessWidget {
   EnterDetailsPage({Key? key}) : super(key: key);
 
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class EnterDetailsPage extends StatelessWidget {
             RoundedInputField(
               Strings.EnterYourName!,
               onChanged: (text) {
+                name = text;
                 isButtonEnabled.value = (text?.length ?? 0) > 0;
               },
             ),
@@ -60,6 +63,7 @@ class EnterDetailsPage extends StatelessWidget {
   }
 
   void NavigateToCardNumber(BuildContext context) {
+    SignupData.CurrentSignupData.name = name;
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => EnterCardNumberPage()));
   }

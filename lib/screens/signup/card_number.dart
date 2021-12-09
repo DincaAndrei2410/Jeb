@@ -5,12 +5,15 @@ import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/screens/signup/cvv_number.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/signup_data_service.dart';
+import 'package:jaib/services/signup_service.dart';
 import 'package:jaib/style.dart';
 
 class EnterCardNumberPage extends StatelessWidget {
   EnterCardNumberPage({Key? key}) : super(key: key);
 
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier<bool>(false);
+  String? cardNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class EnterCardNumberPage extends StatelessWidget {
               16,
               17,
               onChanged: (text) {
+                cardNumber = text;
                 isButtonEnabled.value = (text?.length ?? 0) == 16;
               },
             ),
@@ -58,7 +62,24 @@ class EnterCardNumberPage extends StatelessWidget {
   }
 
   void NavigateToCVVNumber(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EnterCVVNumberPage()));
+    SignupService.validateCard(cardNumber!).then((value) => {
+          if (value > 0)
+            {
+              SignupData.CurrentSignupData.cardId = value,
+              SignupData.CurrentSignupData.cardNumber = cardNumber,
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EnterCVVNumberPage()))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        content: Text("You entered an invalid card number",
+                            style: BoldMediumSizeTextStyle));
+                  })
+            }
+        });
   }
 }

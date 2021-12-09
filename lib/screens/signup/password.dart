@@ -5,6 +5,8 @@ import 'package:jaib/components/underlined_text_button.dart';
 import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/signup_data_service.dart';
+import 'package:jaib/services/signup_service.dart';
 import 'package:jaib/style.dart';
 
 class PasswordPage extends StatelessWidget {
@@ -160,6 +162,28 @@ class PasswordPage extends StatelessWidget {
       reEnterPasswordController?.clear();
       return;
     }
+
+    SignupData.CurrentSignupData.password = password;
+    SignupData.CurrentSignupData.username = username;
+
+    SignupService.signUp().then((value) => {
+          if (value)
+            {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OnboardingPage()))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        content: Text(
+                            "Failed to create new account. Try again later!",
+                            style: BoldMediumSizeTextStyle));
+                  })
+            }
+        });
 
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => OnboardingPage()));

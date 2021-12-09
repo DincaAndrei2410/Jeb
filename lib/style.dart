@@ -73,6 +73,12 @@ const BoldSubtitleTextStyle = TextStyle(
     fontSize: SubtitleTextSize,
     color: GreenColor);
 
+const ErrorTextStyle = TextStyle(
+    fontFamily: FontNameDefault,
+    fontWeight: FontWeight.w700,
+    fontSize: SubtitleTextSize,
+    color: Colors.red);
+
 const InputHintStyle = TextStyle(
     fontFamily: FontNameDefault,
     fontWeight: FontWeight.w500,

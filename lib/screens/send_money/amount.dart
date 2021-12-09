@@ -6,6 +6,7 @@ import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/summary.dart';
 import 'package:jaib/models/country.dart';
 import 'package:jaib/models/user.dart';
+import 'package:jaib/services/country_service.dart';
 import 'package:jaib/services/current_user_service.dart';
 import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/rate_service.dart';
@@ -93,7 +94,8 @@ class _AmountPageState extends State<AmountPage> {
                   return RoundedInputField(
                     Strings.TheyReceive!,
                     initialValue: receiveValue,
-                    countryFlag: currentUser?.country.flag,
+                    countryFlag: CountryService.MapCountryCodeToFlag(
+                        currentUser?.countryCode ?? ""),
                     interactionEnabled: false,
                     key: UniqueKey(),
                   );
@@ -122,8 +124,7 @@ class _AmountPageState extends State<AmountPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: rates!.keys
                       .map((e) => RateContainer(
-                          Country
-                              .currencyForCountry[currentUser?.country.name]!,
+                          Country.currencyForCountry[currentUser?.countryCode]!,
                           rates![e]!.toStringAsFixed(2),
                           e,
                           e == Strings.Today!))
@@ -161,13 +162,13 @@ class _AmountPageState extends State<AmountPage> {
   }
 
   String FormatReceiveValue(double? amount) {
-    return "${((amount ?? 0) * todayRate!).toStringAsFixed(2)} ${Country.currencyForCountry[currentUser?.country.name]}";
+    return "${((amount ?? 0) * todayRate!).toStringAsFixed(2)} ${Country.currencyForCountry[currentUser?.countryCode]}";
   }
 
   void NavigateToDashboard(BuildContext context) {
     var parsedAmount = double.tryParse(amount!) ?? 0;
 
-    if (parsedAmount > (currentUser?.balance ?? 0)) {
+    if (parsedAmount > (currentUser?.card?.balance ?? 0)) {
       hasErrors.value = true;
       return;
     }

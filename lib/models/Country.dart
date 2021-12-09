@@ -1,15 +1,24 @@
 class Country {
   String name;
-  String flag;
+  String code;
+  String currency;
+  double exchangeRate;
+  bool transferEnabled;
 
-  Country(this.name, this.flag);
+  Country(this.name, this.code, this.currency, this.exchangeRate,
+      this.transferEnabled);
 
   static Map<String, String> currencyForCountry = {
-    "India": "INR",
-    "Pakistan": "PKR",
-    "Bangladesh": "BDT",
-    "Nepal": "NPR",
-    "Sri Lanka": "LKR",
-    "Philippines": "PHP"
+    "IN": "INR",
+    "PK": "PKR",
+    "BD": "BDT",
+    "NP": "NPR",
+    "LK": "LKR",
+    "PH": "PHP"
   };
+
+  factory Country.fromJson(Map<String, dynamic> json) {
+    return Country(json['name'], json['code'], json['currency'],
+        json['exchangeRate'], json['transferEnabled']);
+  }
 }
