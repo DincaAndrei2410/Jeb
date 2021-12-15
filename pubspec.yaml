@@ -83,6 +83,7 @@ flutter:
     - assets/images/transfer_icon.png
     - assets/images/send_money_image.png
     - assets/images/amount_rate_icon.png
+    - assets/images/no_transfers.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

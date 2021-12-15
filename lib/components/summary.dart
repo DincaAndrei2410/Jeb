@@ -46,7 +46,7 @@ class Summary extends StatelessWidget {
                       style: BoldSmallSizeTextStyle,
                     ),
                     Text(
-                      "${summaryDetails.name}",
+                      "${summaryDetails.firstName} ${summaryDetails.lastName}",
                       style: Regular14SizeTextStyle,
                     )
                   ],

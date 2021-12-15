@@ -46,6 +46,8 @@ class Strings {
   static String? Summary;
   static String? Confirm;
   static String? MoneyOnTheWay;
+  static String? NoRecentTransfers;
+  static String? SendMoneyClickButtonBellow;
 
   static void FlipLanguage() {
     if (currentLanguage == Language.english) {
@@ -85,7 +87,7 @@ class Strings {
       TransferInstantly = "Transfer instantly using 'Send money' button";
       OkGotIt = "Ok, got it.";
       PasswordDoesNotMatch = "Password does not match. Try again";
-      RecentTransfer = "Recent Transfer";
+      RecentTransfer = "Recent Transfers";
       SendMoney = "Send Money";
       HowMuchToSend = "How much do you want to send?";
       YouSend = "You send";
@@ -106,6 +108,8 @@ class Strings {
       Summary = "Summary";
       Confirm = "Confirm";
       MoneyOnTheWay = "You money is on the way";
+      NoRecentTransfers = "No recent transfers";
+      SendMoneyClickButtonBellow = "Send money now using the button bellow!";
     } else {
       WelcomeToJeb = "जेब में आपका स्वागत है";
       PleaseLogIn = "कृपया अभी पैसे ट्रांसफर करने के लिए लॉग इन करें";
@@ -157,6 +161,9 @@ class Strings {
       Summary = "सारांश";
       Confirm = "पुष्टि करना";
       MoneyOnTheWay = "आपका पैसा रास्ते में है";
+      NoRecentTransfers = "कोई हालिया स्थानांतरण नहीं";
+      SendMoneyClickButtonBellow =
+          "नीचे दिए गए बटन का उपयोग करके पैसे घर भेजें";
     }
   }
 }

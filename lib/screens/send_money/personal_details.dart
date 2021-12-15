@@ -76,8 +76,9 @@ class PersonalDetailsPage extends StatelessWidget {
   }
 
   void NavigateToBankDetailsNumber(BuildContext context) {
-    SendMoneyDetails.LocalSendMoneyDetails.name =
-        "${firstName ?? ""} ${lastName ?? ""}";
+    SendMoneyDetails.LocalSendMoneyDetails.firstName = firstName ?? "";
+    SendMoneyDetails.LocalSendMoneyDetails.lastName = lastName ?? "";
+
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => BankDetailsPage()));
   }

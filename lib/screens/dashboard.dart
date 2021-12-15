@@ -22,6 +22,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  late Future<List<Transfer>> futureCountries;
+
+  void initState() {
+    futureCountries =
+        TransferService.getTransfer(CurrentUserService.currentUser?.id ?? "");
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -45,8 +52,43 @@ class _DashboardPageState extends State<DashboardPage> {
             Container(
               color: DashboardBackgroundColor,
             ),
-            RecentTransferContainer(
-              childWidget: RecentTransfers(TransferService.Transfers),
+            FutureBuilder<List<Transfer>>(
+              future: futureCountries,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RecentTransferContainer(
+                      childWidget: ((snapshot.data?.length ?? 0) > 0)
+                          ? RecentTransfers(snapshot.data!)
+                          : Padding(
+                              padding: EdgeInsets.all(50),
+                              child: Column(
+                                children: [
+                                  Text(Strings.NoRecentTransfers!,
+                                      style: MediumSizeTextStyle),
+                                  SizedBox(height: 25),
+                                  Image.asset(
+                                    "assets/images/no_transfers.png",
+                                    width: 120,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  SizedBox(height: 25),
+                                  Text(
+                                    Strings.SendMoneyClickButtonBellow!,
+                                    style: MediumSizeTextStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ));
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                } else {
+                  return const CircularProgressIndicator(
+                    color: GreenColor,
+                  );
+                }
+              },
             ),
             CardBalanceWidget(),
           ],
@@ -74,6 +116,7 @@ class RecentTransferContainer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 220),
       child: Container(
+          width: MediaQuery.of(context).size.width,
           color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(

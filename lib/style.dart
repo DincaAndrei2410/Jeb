@@ -61,6 +61,12 @@ const BalanceTextStyle = TextStyle(
     fontSize: BalanceTextSize,
     color: Colors.white);
 
+const MediumSizeTextStyle = TextStyle(
+    fontFamily: FontNameDefault,
+    fontWeight: FontWeight.w700,
+    fontSize: BalanceTextSize,
+    color: SubtitleColor);
+
 const SubtitleTextStyle = TextStyle(
     fontFamily: FontNameDefault,
     fontWeight: FontWeight.w500,

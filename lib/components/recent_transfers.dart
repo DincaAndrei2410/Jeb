@@ -36,10 +36,10 @@ class RecentTransfers extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          transfer.isFirstInMonth
+          transfer.isFirstInMonth ?? false
               ? const SizedBox(height: 16)
               : const SizedBox(height: 0),
-          transfer.isFirstInMonth
+          transfer.isFirstInMonth ?? false
               ? Text(
                   "${Months.AllMonths[transfer.date.month - 1]} ${transfer.date.year}",
                   style: SubtitleTextStyle,
@@ -70,7 +70,7 @@ class RecentTransfers extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${transfer.senderName}",
+                        "${transfer..beneficiary.name}",
                         style: BoldMediumSizeTextStyle,
                       ),
                       Text(
@@ -80,7 +80,7 @@ class RecentTransfers extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "AED ${transfer.amount}",
+                    "AED ${transfer.receiveAmount}",
                     style: BoldSmallSizeTextStyle,
                   ),
                 ],

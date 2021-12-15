@@ -1,5 +1,6 @@
 class SendMoneyDetails {
-  String? name;
+  String? firstName;
+  String? lastName;
   String? bankName;
   String? accountNumber;
   String? country;
