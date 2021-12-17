@@ -10,8 +10,21 @@ import 'package:http/http.dart' as http;
 class BeneficiaryService {
   static int? CurrentBeneficiaryId;
 
+  static Future<String> getBeneficiaryName(int beneficiaryId) async {
+    var url = "${WebApiBaseUrl}MoneyTransfer/$beneficiaryId";
+
+    var response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var body = json.decode(response.body);
+      return "${body['firstName']} ${body['lastName']}";
+    } else {
+      return "";
+    }
+  }
+
   static Future<bool> addBeneficiary() async {
-    var url = "${WebApiBaseUrl}/MoneyTransfer/AddBeneficiary";
+    var url = "${WebApiBaseUrl}MoneyTransfer/AddBeneficiary";
 
     var beneficiary = MoneyTransferBeneficiary();
     var currentTransferData = SendMoneyDetails.LocalSendMoneyDetails;
@@ -23,9 +36,8 @@ class BeneficiaryService {
     beneficiary.lastName = currentTransferData.lastName;
     beneficiary.firstName = currentTransferData.firstName;
 
-    var body = jsonEncode(<String, MoneyTransferBeneficiary>{
-      'moneyTransferBeneficiary': beneficiary
-    });
+    var body =
+        jsonEncode(<String, dynamic>{'moneyTransferBeneficiary': beneficiary});
     var headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };

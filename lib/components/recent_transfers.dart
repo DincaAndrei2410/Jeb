@@ -66,11 +66,12 @@ class RecentTransfers extends StatelessWidget {
                           fit: BoxFit.scaleDown),
                     ),
                   ),
+                  SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${transfer..beneficiary.name}",
+                        "${transfer.beneficiary.name}",
                         style: BoldMediumSizeTextStyle,
                       ),
                       Text(
@@ -79,6 +80,7 @@ class RecentTransfers extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Spacer(),
                   Text(
                     "AED ${transfer.receiveAmount}",
                     style: BoldSmallSizeTextStyle,

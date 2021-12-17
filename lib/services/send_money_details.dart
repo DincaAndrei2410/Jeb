@@ -5,7 +5,9 @@ class SendMoneyDetails {
   String? accountNumber;
   String? country;
   String? purpose;
-  String? transferAmount;
+  double? sendAmount;
+  double? receiveAmount;
+  double? exchangeRate;
 
   static SendMoneyDetails LocalSendMoneyDetails = SendMoneyDetails();
 }

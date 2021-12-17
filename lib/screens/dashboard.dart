@@ -11,6 +11,7 @@ import 'package:jaib/screens/signup/enter_details.dart';
 import 'package:jaib/screens/signup/onboarding.dart';
 import 'package:jaib/services/current_user_service.dart';
 import 'package:jaib/services/language_service.dart';
+import 'package:jaib/services/rate_service.dart';
 import 'package:jaib/services/transfer_service.dart';
 import 'package:jaib/style.dart';
 
@@ -46,60 +47,85 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             )),
       ),
-      body: Container(
-        child: Stack(
-          children: [
-            Container(
-              color: DashboardBackgroundColor,
-            ),
-            FutureBuilder<List<Transfer>>(
-              future: futureCountries,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return RecentTransferContainer(
-                      childWidget: ((snapshot.data?.length ?? 0) > 0)
-                          ? RecentTransfers(snapshot.data!)
-                          : Padding(
-                              padding: EdgeInsets.all(50),
-                              child: Column(
-                                children: [
-                                  Text(Strings.NoRecentTransfers!,
-                                      style: MediumSizeTextStyle),
-                                  SizedBox(height: 25),
-                                  Image.asset(
-                                    "assets/images/no_transfers.png",
-                                    width: 120,
-                                    height: 150,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(height: 25),
-                                  Text(
-                                    Strings.SendMoneyClickButtonBellow!,
-                                    style: MediumSizeTextStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ));
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                } else {
-                  return const CircularProgressIndicator(
-                    color: GreenColor,
-                  );
-                }
-              },
-            ),
-            CardBalanceWidget(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Stack(
+            children: [
+              Container(
+                color: DashboardBackgroundColor,
+              ),
+              FutureBuilder<List<Transfer>>(
+                future: futureCountries,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return RecentTransferContainer(
+                        childWidget: ((snapshot.data?.length ?? 0) > 0)
+                            ? RecentTransfers(snapshot.data!)
+                            : Padding(
+                                padding: EdgeInsets.all(50),
+                                child: Column(
+                                  children: [
+                                    Text(Strings.NoRecentTransfers!,
+                                        style: MediumSizeTextStyle),
+                                    SizedBox(height: 25),
+                                    Image.asset(
+                                      "assets/images/no_transfers.png",
+                                      width: 120,
+                                      height: 150,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(height: 25),
+                                    Text(
+                                      Strings.SendMoneyClickButtonBellow!,
+                                      style: MediumSizeTextStyle,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ));
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return RecentTransferContainer(
+                      childWidget: Center(
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          child: const CircularProgressIndicator(
+                            color: GreenColor,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+              CardBalanceWidget(),
+            ],
+          ),
         ),
       ),
     );
   }
 
   void NavigateToSendMoneyScreen(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AmountPage()));
+    RateService.getRates().then((value) => {
+          if (value)
+            {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AmountPage()))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        content: Text("Could not get rates. Try again!",
+                            style: BoldMediumSizeTextStyle));
+                  })
+            }
+        });
   }
 }
 
@@ -145,11 +171,13 @@ class CardBalanceWidget extends StatelessWidget {
         padding: EdgeInsets.only(top: 80, left: 25, right: 25),
         child: Container(
           height: 180,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              image: DecorationImage(
+                image: AssetImage("assets/images/dashboard_card.png"),
+                fit: BoxFit.cover,
+              )),
           child: Stack(children: [
-            Image.asset(
-              "assets/images/dashboard_card.png",
-              fit: BoxFit.cover,
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 28, right: 28),
               child: Column(

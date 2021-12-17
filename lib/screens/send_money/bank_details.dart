@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
+import 'package:jaib/services/beneficiary_service.dart';
 import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/send_money/transfer_summary.dart';
@@ -92,7 +93,25 @@ class BankDetailsPage extends StatelessWidget {
     SendMoneyDetails.LocalSendMoneyDetails.accountNumber = accountNumber ?? "";
     SendMoneyDetails.LocalSendMoneyDetails.purpose = purpose ?? "";
 
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => TransferSummaryPage()));
+    BeneficiaryService.addBeneficiary().then((value) => {
+          if (value)
+            {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TransferSummaryPage()))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        content: Text(
+                            "Beneficiary could not be added. Try again!",
+                            style: BoldMediumSizeTextStyle));
+                  })
+            }
+        });
   }
 }

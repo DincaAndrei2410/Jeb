@@ -184,8 +184,5 @@ class PasswordPage extends StatelessWidget {
                   })
             }
         });
-
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => OnboardingPage()));
   }
 }

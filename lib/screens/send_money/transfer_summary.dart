@@ -3,9 +3,11 @@ import 'package:jaib/components/countries_dropdown_input_field.dart';
 import 'package:jaib/components/rounded_button.dart';
 import 'package:jaib/components/rounded_input_field.dart';
 import 'package:jaib/components/summary.dart';
+import 'package:jaib/services/current_user_service.dart';
 import 'package:jaib/services/language_service.dart';
 import 'package:jaib/services/send_money_details.dart';
 import 'package:jaib/screens/signup/card_number.dart';
+import 'package:jaib/services/transfer_service.dart';
 import 'package:jaib/style.dart';
 
 import 'bank_details.dart';
@@ -42,9 +44,26 @@ class TransferSummaryPage extends StatelessWidget {
   }
 
   void NavigateToCongratulations(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SendMoneyCongratulationsPage()));
+    TransferService.makeTransfer().then((value) => {
+          if (value)
+            {
+              CurrentUserService.currentUser?.card.balance -=
+                  SendMoneyDetails.LocalSendMoneyDetails.sendAmount!,
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SendMoneyCongratulationsPage()))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        content: Text("Failed to make transfer. Try again!",
+                            style: BoldMediumSizeTextStyle));
+                  })
+            }
+        });
   }
 }

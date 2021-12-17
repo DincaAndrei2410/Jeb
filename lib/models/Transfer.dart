@@ -11,16 +11,21 @@ class Beneficiary {
 }
 
 class Transfer {
+  int beneficiaryId;
   Beneficiary beneficiary;
   double receiveAmount;
   DateTime date;
   bool? isFirstInMonth;
 
-  Transfer(this.beneficiary, this.receiveAmount, this.date,
+  Transfer(this.beneficiary, this.receiveAmount, this.date, this.beneficiaryId,
       {this.isFirstInMonth});
 
   factory Transfer.fromJson(Map<String, dynamic> json) {
-    return Transfer(Beneficiary.fromJson(json["beneficiary"]),
-        json["receiveAmount"], json["date"]);
+    return Transfer(Beneficiary(""), json["receiveAmount"],
+        DateTime.parse(json["date"]), json["beneficiaryId"]);
+  }
+
+  setBeneficiaryName(String beneficiaryName) {
+    beneficiary.name = beneficiaryName;
   }
 }

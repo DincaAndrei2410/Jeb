@@ -10,5 +10,14 @@ class MoneyTransferBeneficiary {
   String? accountNumber;
   String? bankName;
   String? purpose;
-  int? id;
+
+  Map<String, dynamic> toJson() => {
+        'userId': userId,
+        'countryCode': countryCode,
+        'firstName': firstName,
+        'lastName': lastName,
+        'accountNumber': accountNumber,
+        'bankName': bankName,
+        'purpose': purpose,
+      };
 }

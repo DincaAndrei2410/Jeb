@@ -27,6 +27,7 @@ class AmountPage extends StatefulWidget {
 
 class _AmountPageState extends State<AmountPage> {
   String? amount;
+  double? receiveAmount;
 
   double? rate;
 
@@ -90,10 +91,11 @@ class _AmountPageState extends State<AmountPage> {
               const SizedBox(height: 20),
               ValueListenableBuilder<double>(
                 builder: (BuildContext context, double value, Widget? child) {
-                  var receiveValue = FormatReceiveValue(value);
+                  receiveAmount = value;
+                  var formatReceiveValue = FormatReceiveValue(value);
                   return RoundedInputField(
                     Strings.TheyReceive!,
-                    initialValue: receiveValue,
+                    initialValue: formatReceiveValue,
                     countryFlag: CountryService.MapCountryCodeToFlag(
                         currentUser?.countryCode ?? ""),
                     interactionEnabled: false,
@@ -127,11 +129,11 @@ class _AmountPageState extends State<AmountPage> {
                           Country.currencyForCountry[currentUser?.countryCode]!,
                           rates![e]!.toStringAsFixed(2),
                           e,
-                          e == Strings.Today!))
+                          e == RateService.getKeyForBestRate()))
                       .toList()),
               const SizedBox(height: 24),
               Text(
-                Strings.RecommendTransferToday!,
+                "We recommend you transfer ${RateService.getDayForBestRate()}",
                 style: InputFieldTextStyle,
               ),
               const SizedBox(height: 24),
@@ -174,7 +176,10 @@ class _AmountPageState extends State<AmountPage> {
     }
 
     SendMoneyDetails.LocalSendMoneyDetails.country = "India";
-    SendMoneyDetails.LocalSendMoneyDetails.transferAmount = amount;
+    SendMoneyDetails.LocalSendMoneyDetails.sendAmount =
+        double.tryParse(amount!);
+    SendMoneyDetails.LocalSendMoneyDetails.receiveAmount = receiveAmount;
+    SendMoneyDetails.LocalSendMoneyDetails.exchangeRate = todayRate;
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => PersonalDetailsPage()));
